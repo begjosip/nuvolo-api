@@ -31,6 +31,9 @@ public class NuvoloUser extends AuditableEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private Boolean isEnabled;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Address> addresses = new ArrayList<>();

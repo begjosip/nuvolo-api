@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS nuvolo_user
     last_name        VARCHAR(255)                        NOT NULL,
     email            VARCHAR(255)                        NOT NULL,
     password         VARCHAR(72)                         NOT NULL,
+    is_enabled       BOOLEAN   DEFAULT FALSE             NOT NULL,
     created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     last_modified_at TIMESTAMP                           NULL
 );

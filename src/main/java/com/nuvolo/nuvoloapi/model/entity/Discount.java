@@ -6,8 +6,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -33,7 +31,4 @@ public class Discount extends AuditableEntity {
 
     @Column(nullable = false)
     private Boolean active;
-
-    @OneToMany(mappedBy = "discount", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Product> products = new HashSet<>();
 }
