@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_nuvolo
+    environment:
+      POSTGRES_DB: nuvolo_db
+      POSTGRES_USER: nuvolo_user
+      POSTGRES_PASSWORD: nuvolo_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
