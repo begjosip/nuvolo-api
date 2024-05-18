@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS type
 (
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR(20) NOT NULL,
+    id          BIGSERIAL PRIMARY KEY,
+    name        VARCHAR(20) NOT NULL UNIQUE,
     description TEXT
 );
