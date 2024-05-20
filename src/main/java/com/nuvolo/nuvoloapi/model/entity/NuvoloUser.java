@@ -38,7 +38,7 @@ public class NuvoloUser extends AuditableEntity {
     @Builder.Default
     private List<Address> addresses = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

@@ -1,16 +1,21 @@
 package com.nuvolo.nuvoloapi.security;
 
-import com.nuvolo.nuvoloapi.util.JwtUtil;
-import io.jsonwebtoken.JwtException;
+import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -18,33 +23,31 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final NuvoloUserDetailsService userDetailsService;
+    private final JwtService jwtService;
 
-    public JwtAuthFilter(NuvoloUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    private final NuvoloUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
-            throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+            throws IOException {
         try {
+            String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             final String token = authHeader.substring(7);
-            final String email = JwtUtil.extractEmailFromToken(token);
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-            if (email != null && authentication == null) {
+            final String email = jwtService.extractEmailFromToken(token);
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
-                if (JwtUtil.validateToken(token, userDetails)) {
+                if (jwtService.validToken(token, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
@@ -55,10 +58,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
-        } catch (Exception ex) {
-            throw new JwtException(String.format("Invalid JWT token. %s", ex.getMessage()));
+        } catch (MalformedJwtException | SignatureException | ExpiredJwtException | UsernameNotFoundException |
+                 UserVerificationException ex) {
+            SecurityContextHolder.clearContext();
+            customAuthenticationEntryPoint.commence(request, response, new BadCredentialsException(ex.getMessage()));
+        } catch (ServletException ex) {
+            SecurityContextHolder.clearContext();
+            customAuthenticationEntryPoint.commence(request, response, new InsufficientAuthenticationException(ex.getMessage()));
         }
-
     }
-
 }
