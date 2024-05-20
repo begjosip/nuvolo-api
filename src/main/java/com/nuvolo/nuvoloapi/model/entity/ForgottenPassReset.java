@@ -7,10 +7,10 @@ import lombok.*;
 @Setter
 @Builder
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(name = "uc_verification__token", columnNames = "token"))
+@Table(uniqueConstraints = @UniqueConstraint(name = "uc_forgotten_pass_reset__token", columnNames = "token"))
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Verification extends AuditableEntity {
+public class ForgottenPassReset extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +20,10 @@ public class Verification extends AuditableEntity {
     private String token;
 
     @Column(nullable = false)
-    private Boolean isVerified;
+    private Boolean utilised;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private NuvoloUser user;
+
 }

@@ -58,15 +58,30 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/request-password-reset")
-    public ResponseEntity<Object> requestPasswordReset() {
-        // TODO: make password reset request
+    @PostMapping("/verify/{token}")
+    public ResponseEntity<Object> verifyUserByToken(@PathVariable String token) {
+        log.info(" > > > POST /api/v1/auth/verify/{}", token);
+        userService.verifyUserByToken(token);
+        log.info(" < < < POST /api/v1/auth/verify/{}", token);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/reset-password/:token")
-    public ResponseEntity<Object> resetPassword(@PathVariable String token) {
-        // TODO: implement password change
+    @PostMapping("/request-password-reset")
+    public ResponseEntity<Object> requestPasswordReset(
+            @Validated(UserDtoValidator.PasswordResetRequest.class) @RequestBody UserRequestDto userRequestDto
+    ) {
+        log.info(" > > > POST /api/v1/auth/request-password-reset");
+        userService.requestForgottenPasswordReset(userRequestDto.getEmail());
+        log.info(" < < < POST /api/v1/auth/request-password-reset");
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Object> resetPassword(@Validated(UserDtoValidator.ForgottenPasswordChange.class)
+                                                @RequestBody UserRequestDto userRequestDto) {
+        log.info(" > > > POST /api/v1/auth/reset-password");
+        userService.resetForgottenPassword(userRequestDto);
+        log.info(" < < < POST /api/v1/auth/reset-password");
         return ResponseEntity.ok().build();
     }
 }

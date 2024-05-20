@@ -1,11 +1,15 @@
 package com.nuvolo.nuvoloapi.service;
 
+import com.nuvolo.nuvoloapi.exceptions.ForgottenPasswordException;
 import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
+import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
 import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
 import com.nuvolo.nuvoloapi.model.dto.request.UserRequestDto;
+import com.nuvolo.nuvoloapi.model.entity.ForgottenPassReset;
 import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
 import com.nuvolo.nuvoloapi.model.entity.Verification;
 import com.nuvolo.nuvoloapi.model.enums.RoleName;
+import com.nuvolo.nuvoloapi.repository.ForgottenPassResetRepository;
 import com.nuvolo.nuvoloapi.repository.NuvoloUserRepository;
 import com.nuvolo.nuvoloapi.repository.RoleRepository;
 import com.nuvolo.nuvoloapi.repository.VerificationRepository;
@@ -16,6 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +34,8 @@ public class UserService {
     private final RoleRepository roleRepository;
 
     private final VerificationRepository verificationRepository;
+
+    private final ForgottenPassResetRepository forgottenPassResetRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -56,7 +63,7 @@ public class UserService {
                 .user(savedUser)
                 .build();
         log.debug("Saving user verification to database");
-        Verification savedVerification  = verificationRepository.save(verification);
+        Verification savedVerification = verificationRepository.save(verification);
         log.debug("Verification with ID:{} saved to database.", savedVerification.getId());
 
         // TODO: Send email for account verification
@@ -65,7 +72,64 @@ public class UserService {
     @Transactional
     public NuvoloUser findUserByEmail(String email) {
         log.debug("Finding user for email {}", email);
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s email not found.", email)));
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s email not found.", email)));
+    }
+
+    public void verifyUserByToken(String token) {
+        log.debug("Verifying user by token {}", token);
+        Verification verification = verificationRepository.findByTokenAndIsVerified(token, Boolean.FALSE)
+                .orElseThrow(() -> new UserVerificationException("Error while trying to validate user. User might already be validated or token is invalid."));
+        NuvoloUser user = verification.getUser();
+        log.debug("Saving verified user to database.");
+        user.setIsEnabled(Boolean.TRUE);
+        userRepository.save(user);
+        log.debug("Verified user with ID:{} saved to database.", user.getId());
+    }
+
+    @Transactional
+    public void requestForgottenPasswordReset(String email) {
+        log.debug("Received password reset request from email {}", email);
+        NuvoloUser user = findUserByEmail(email);
+        if (Boolean.FALSE.equals(user.getIsEnabled())) {
+            throw new UserVerificationException("User is not verified. Can't change password before verification.");
+        }
+        ForgottenPassReset forgottenPassReset = ForgottenPassReset.builder()
+                .token(UUID.randomUUID().toString())
+                .utilised(false)
+                .user(user)
+                .build();
+        log.debug("Saving user forgotten password reset entity to database");
+        ForgottenPassReset savedPassReset = forgottenPassResetRepository.save(forgottenPassReset);
+        log.debug("Saved user forgotten password reset entity with ID: {} to database", savedPassReset.getId());
+
+        // TODO: send password reset link via email
+    }
+
+    @Transactional
+    public void resetForgottenPassword(UserRequestDto userRequestDto) {
+        log.debug("Resetting user password by token.");
+        NuvoloUser user = userRepository.findByEmail(userRequestDto.getEmail()).
+                orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s email not found.", userRequestDto.getEmail())));
+        ForgottenPassReset forgottenPassReset = forgottenPassResetRepository.findFirstByUserAndTokenAndUtilisedAndCreatedAtAfter
+                        (user, userRequestDto.getToken(), Boolean.FALSE, LocalDateTime.now().minusDays(5))
+                .orElseThrow(() -> new ForgottenPasswordException("No valid password reset requests found in 5 days. Send new request!"));
+        log.debug("Found valid password reset request.");
+        if (!userRequestDto.getPassword().equals(userRequestDto.getConfirmPassword())) {
+            log.debug("Passwords are not matching.");
+            throw new InvalidPasswordException("Passwords are not matching");
+        }
+        log.debug("Passwords validated. Changing user password!");
+
+        forgottenPassReset.setUtilised(true);
+        log.debug("Saving updated forgotten password request to database.");
+        forgottenPassResetRepository.save(forgottenPassReset);
+        log.debug("Utilised forgotten password request saved to database.");
+
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        log.debug("Saving updated user entity to database.");
+        NuvoloUser savedUser = userRepository.save(user);
+        log.debug("Updated user with ID:{} saved to database.", savedUser.getId());
     }
 
     private void validateUserData(UserRequestDto userRequestDto) {

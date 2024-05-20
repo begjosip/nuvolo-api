@@ -19,8 +19,10 @@ public class UserRequestDto {
     @NotBlank(groups = {UserDtoValidator.Register.class}, message = "Insert last name")
     private String lastName;
 
-    @NotBlank(groups = {UserDtoValidator.SignIn.class, UserDtoValidator.Register.class, UserDtoValidator.PasswordResetRequest.class})
-    @Email(groups = {UserDtoValidator.SignIn.class, UserDtoValidator.Register.class, UserDtoValidator.PasswordResetRequest.class},
+    @NotBlank(groups = {UserDtoValidator.SignIn.class, UserDtoValidator.Register.class,
+            UserDtoValidator.PasswordResetRequest.class, UserDtoValidator.ForgottenPasswordChange.class}, message = "Email is blank.")
+    @Email(groups = {UserDtoValidator.SignIn.class, UserDtoValidator.Register.class,
+            UserDtoValidator.PasswordResetRequest.class, UserDtoValidator.ForgottenPasswordChange.class},
             message = "Insert valid email")
     private String email;
 
@@ -36,7 +38,8 @@ public class UserRequestDto {
             UserDtoValidator.PasswordChange.class}, message = "Repeat password")
     private String confirmPassword;
 
-    @NotBlank(groups = {UserDtoValidator.ForgottenPasswordChange.class})
+    @Size(min = 36, max = 36, message = "Invalid password reset token.")
+    @NotBlank(groups = {UserDtoValidator.ForgottenPasswordChange.class}, message = "Token missing.")
     private String token;
 
 }
