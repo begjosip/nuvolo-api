@@ -52,6 +52,7 @@ public class UserService {
 
         Verification verification = Verification.builder()
                 .token(UUID.randomUUID().toString())
+                .isVerified(false)
                 .user(savedUser)
                 .build();
         log.debug("Saving user verification to database");

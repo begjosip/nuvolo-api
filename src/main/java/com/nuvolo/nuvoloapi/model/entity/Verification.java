@@ -19,6 +19,9 @@ public class Verification extends AuditableEntity {
     @Column(nullable = false, unique = true)
     private String token;
 
+    @Column(nullable = false)
+    private Boolean isVerified;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private NuvoloUser user;
