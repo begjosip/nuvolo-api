@@ -4,9 +4,11 @@ import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
 import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
 import com.nuvolo.nuvoloapi.model.dto.request.UserRequestDto;
 import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
+import com.nuvolo.nuvoloapi.model.entity.Verification;
 import com.nuvolo.nuvoloapi.model.enums.RoleName;
 import com.nuvolo.nuvoloapi.repository.NuvoloUserRepository;
 import com.nuvolo.nuvoloapi.repository.RoleRepository;
+import com.nuvolo.nuvoloapi.repository.VerificationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,8 @@ public class UserService {
     private final NuvoloUserRepository userRepository;
 
     private final RoleRepository roleRepository;
+
+    private final VerificationRepository verificationRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -43,7 +48,16 @@ public class UserService {
                 .build();
         log.debug("Saving user entity to database.");
         NuvoloUser savedUser = userRepository.save(user);
-        log.debug("User with {} saved to database.", savedUser.getId());
+        log.debug("User with ID:{} saved to database.", savedUser.getId());
+
+        Verification verification = Verification.builder()
+                .token(UUID.randomUUID().toString())
+                .user(savedUser)
+                .build();
+        log.debug("Saving user verification to database");
+        Verification savedVerification  = verificationRepository.save(verification);
+        log.debug("Verification with ID:{} saved to database.", savedVerification.getId());
+
         // TODO: Send email for account verification
     }
 

@@ -5,6 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uc_verification__token", columnNames = "token"))
 @AllArgsConstructor
