@@ -9,6 +9,9 @@ import com.nuvolo.nuvoloapi.model.entity.ForgottenPassReset;
 import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
 import com.nuvolo.nuvoloapi.model.entity.Verification;
 import com.nuvolo.nuvoloapi.model.enums.RoleName;
+import com.nuvolo.nuvoloapi.mq.RabbitMqSender;
+import com.nuvolo.nuvoloapi.mq.message.PasswordResetMessage;
+import com.nuvolo.nuvoloapi.mq.message.VerificationMessage;
 import com.nuvolo.nuvoloapi.repository.ForgottenPassResetRepository;
 import com.nuvolo.nuvoloapi.repository.NuvoloUserRepository;
 import com.nuvolo.nuvoloapi.repository.RoleRepository;
@@ -16,6 +19,7 @@ import com.nuvolo.nuvoloapi.repository.VerificationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +40,8 @@ public class UserService {
     private final VerificationRepository verificationRepository;
 
     private final ForgottenPassResetRepository forgottenPassResetRepository;
+
+    private final RabbitMqSender rabbitMqSender;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -66,7 +72,10 @@ public class UserService {
         Verification savedVerification = verificationRepository.save(verification);
         log.debug("Verification with ID:{} saved to database.", savedVerification.getId());
 
-        // TODO: Send email for account verification
+        log.debug("Sending user email verification");
+        if (Boolean.FALSE.equals(rabbitMqSender.sendEmailVerificationMessage(VerificationMessage.mapVerificationEntityToMessage(savedVerification))))
+            throw new AmqpException("Error occurred while sending user verification message.");
+        log.debug("User email verification successfully sent");
     }
 
     @Transactional
@@ -103,7 +112,11 @@ public class UserService {
         ForgottenPassReset savedPassReset = forgottenPassResetRepository.save(forgottenPassReset);
         log.debug("Saved user forgotten password reset entity with ID: {} to database", savedPassReset.getId());
 
-        // TODO: send password reset link via email
+        log.debug("Sending password reset message to email service.");
+        if (!rabbitMqSender.sendPasswordResetMessage(PasswordResetMessage.mapForgottenPassResetEntityToMessage(savedPassReset))) {
+            throw new AmqpException("Error occurred while sending password reset request.");
+        }
+        log.debug("Password reset message sent successfully.");
     }
 
     @Transactional

@@ -1,0 +1,83 @@
+{
+  "users": [
+    {
+      "name": "nuvolo",
+      "password_hash": "iB3Clqw1mINWqTrQgFjPEGo2RFu6QtsY/H8lsU8C13+2TInw",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "nuvolo",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "queues": [
+    {
+      "name": "nuvolo.mail.verification",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "nuvolo.mail.password.reset",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "nuvolo.mail.notification",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "nuvolo.direct.exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "nuvolo.direct.exchange",
+      "vhost": "/",
+      "destination": "nuvolo.mail.verification",
+      "destination_type": "queue",
+      "routing_key": "verification",
+      "arguments": {}
+    },
+    {
+      "source": "nuvolo.direct.exchange",
+      "vhost": "/",
+      "destination": "nuvolo.mail.password.reset",
+      "destination_type": "queue",
+      "routing_key": "pass_reset",
+      "arguments": {}
+    },
+    {
+      "source": "nuvolo.direct.exchange",
+      "vhost": "/",
+      "destination": "nuvolo.mail.notification",
+      "destination_type": "queue",
+      "routing_key": "notification",
+      "arguments": {}
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
 import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
 import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.amqp.AmqpException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -84,6 +85,16 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleInvalidRequestArguments(InvalidPasswordException ex, HttpServletRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         problemDetail.setTitle("Passwords are not matching!");
+        problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    @ExceptionHandler(AmqpException.class)
+    public ProblemDetail globalErrorHandling(AmqpException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.getMessage());
+        problemDetail.setTitle("Messaging error!");
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;
