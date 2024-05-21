@@ -94,6 +94,11 @@ public class UserService {
         user.setIsEnabled(Boolean.TRUE);
         userRepository.save(user);
         log.debug("Verified user with ID:{} saved to database.", user.getId());
+
+        log.debug("Invalidating verification!");
+        verification.setIsVerified(Boolean.TRUE);
+        verificationRepository.save(verification);
+        log.debug("Saving updated verification with ID:{}", verification.getId());
     }
 
     @Transactional
@@ -113,7 +118,7 @@ public class UserService {
         log.debug("Saved user forgotten password reset entity with ID: {} to database", savedPassReset.getId());
 
         log.debug("Sending password reset message to email service.");
-        if (!rabbitMqSender.sendPasswordResetMessage(PasswordResetMessage.mapForgottenPassResetEntityToMessage(savedPassReset))) {
+        if (Boolean.FALSE.equals(rabbitMqSender.sendPasswordResetMessage(PasswordResetMessage.mapForgottenPassResetEntityToMessage(savedPassReset)))) {
             throw new AmqpException("Error occurred while sending password reset request.");
         }
         log.debug("Password reset message sent successfully.");
