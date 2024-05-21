@@ -24,6 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.flywaydb:flyway-core'
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:3.2.5'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'

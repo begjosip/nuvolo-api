@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:15
     container_name: postgres_nuvolo
     environment:
       POSTGRES_DB: nuvolo_db
@@ -25,10 +25,30 @@ services:
     networks:
       - redis_network
 
+  rabbitmq:
+    image: rabbitmq:3.13.2-management
+    container_name: rabbitmq_nuvolo
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+    environment:
+      RABBITMQ_DEFAULT_USER: nuvolo
+      RABBITMQ_DEFAULT_PASS: nuvolo
+      RABBITMQ_CONFIG_FILE: /etc/rabbitmq/rabbitmq.conf
+      restart: unless-stopped
+    networks:
+      - rabbitmq_network
+
+
 volumes:
   postgres_data:
   redis_data:
 
 networks:
   redis_network:
+    driver: bridge
+  rabbitmq_network:
     driver: bridge
