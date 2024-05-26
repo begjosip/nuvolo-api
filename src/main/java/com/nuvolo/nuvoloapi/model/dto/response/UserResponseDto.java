@@ -1,6 +1,7 @@
 package com.nuvolo.nuvoloapi.model.dto.response;
 
 import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
+import com.nuvolo.nuvoloapi.model.enums.RoleName;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,6 +19,8 @@ public class UserResponseDto {
 
     private String token;
 
+    private Boolean isAdmin;
+
     public static UserResponseDto mapAuthenticatedUserEntity(NuvoloUser user, String token) {
         return UserResponseDto.builder().
                 id(user.getId())
@@ -25,6 +28,7 @@ public class UserResponseDto {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .token(token)
+                .isAdmin(user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMIN)))
                 .build();
     }
 }
