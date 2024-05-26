@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ProblemDetail handleUsernameNotFound(UsernameNotFoundException ex, HttpServletRequest request) {
+    public ProblemDetail handleUsernameNotFound(HttpServletRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Not found!");
         problemDetail.setTitle("User does not exist!");
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
