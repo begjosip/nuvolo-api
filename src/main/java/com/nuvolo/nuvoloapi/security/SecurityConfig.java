@@ -1,7 +1,6 @@
 package com.nuvolo.nuvoloapi.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,9 +29,6 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-
-    @Value("${cors.allowed.origin}")
-    private String crossOrigin;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -63,8 +59,8 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin(crossOrigin);
+        config.setAllowCredentials(false);
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
