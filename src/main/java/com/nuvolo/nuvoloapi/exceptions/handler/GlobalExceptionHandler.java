@@ -5,11 +5,11 @@ import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
 import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.amqp.AmqpException;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -28,15 +28,14 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleInvalidRequestArguments(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Invalid request arguments!");
         problemDetail.setTitle("Invalid arguments!");
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
-        Map<String, Object> argumentErrors = new HashMap<>();
-        argumentErrors.put("errors",
-                ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
-                        .toList());
-        problemDetail.setProperties(argumentErrors);
+        Map<String, String> argumentErrors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors()
+                .forEach(fieldError -> argumentErrors.put(fieldError.getField(), fieldError.getDefaultMessage()));
+        problemDetail.setProperty("errors", argumentErrors);
         return problemDetail;
     }
 
@@ -45,6 +44,16 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleUserAlreadyExists(UserWithEmailAlreadyExists ex, HttpServletRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
         problemDetail.setTitle("User with email already exists!");
+        problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ProblemDetail handleUsernameNotFound(UsernameNotFoundException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Not found!");
+        problemDetail.setTitle("User does not exist!");
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;
@@ -70,10 +79,10 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
     public ProblemDetail handleBadCredentials(BadCredentialsException ex, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
         problemDetail.setTitle("Bad credentials!");
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
