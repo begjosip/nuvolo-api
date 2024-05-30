@@ -5,6 +5,8 @@ import com.nuvolo.nuvoloapi.model.enums.RoleName;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class UserResponseDto {
@@ -20,6 +22,8 @@ public class UserResponseDto {
     private String token;
 
     private Boolean isAdmin;
+
+    private LocalDateTime createdAt;
 
     public static UserResponseDto mapAuthenticatedUserEntity(NuvoloUser user, String token) {
         return UserResponseDto.builder().
@@ -39,6 +43,7 @@ public class UserResponseDto {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .isAdmin(user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMIN)))
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 }
