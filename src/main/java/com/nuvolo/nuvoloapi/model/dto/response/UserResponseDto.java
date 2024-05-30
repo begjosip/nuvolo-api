@@ -31,4 +31,14 @@ public class UserResponseDto {
                 .isAdmin(user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMIN)))
                 .build();
     }
+
+    public static UserResponseDto mapUserEntity(NuvoloUser user) {
+        return UserResponseDto.builder().
+                id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .isAdmin(user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMIN)))
+                .build();
+    }
 }

@@ -5,6 +5,7 @@ import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
 import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
 import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
 import com.nuvolo.nuvoloapi.model.dto.request.UserRequestDto;
+import com.nuvolo.nuvoloapi.model.dto.response.UserResponseDto;
 import com.nuvolo.nuvoloapi.model.entity.ForgottenPassReset;
 import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
 import com.nuvolo.nuvoloapi.model.entity.Verification;
@@ -25,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,6 +87,7 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s email not found.", email)));
     }
 
+    @Transactional
     public void verifyUserByToken(String token) {
         log.debug("Verifying user by token {}", token);
         Verification verification = verificationRepository.findByTokenAndIsVerified(token, Boolean.FALSE)
@@ -161,4 +164,15 @@ public class UserService {
         log.debug("User data is validated!");
     }
 
+    @Transactional
+    public List<UserResponseDto> getAllUsers() {
+        log.debug("Fetching all active users.");
+        List<UserResponseDto> users = userRepository.findAll().stream().map(UserResponseDto::mapUserEntity).toList();
+        if (users.isEmpty()) {
+            log.debug("No users found. Returning empty list.");
+            return Collections.emptyList();
+        }
+        log.debug("Returning list of all nuvolo users.");
+        return users;
+    }
 }
