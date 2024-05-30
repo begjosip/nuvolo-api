@@ -1,5 +1,6 @@
 package com.nuvolo.nuvoloapi.exceptions.handler;
 
+import com.nuvolo.nuvoloapi.exceptions.InvalidDiscountException;
 import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
 import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
 import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
@@ -126,6 +127,16 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleResourceNotFoundException(NoResourceFoundException ex, HttpServletRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setTitle("Resource not found!");
+        problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidDiscountException.class)
+    public ProblemDetail handleInvalidDiscountException(InvalidDiscountException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problemDetail.setTitle("Discount error occurred!");
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;
