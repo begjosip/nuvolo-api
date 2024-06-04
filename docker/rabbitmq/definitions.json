@@ -24,23 +24,35 @@
     {
       "name": "nuvolo.mail.verification",
       "vhost": "/",
-      "durable": true,
+      "durable": false,
       "auto_delete": false,
-      "arguments": {}
+      "arguments": {
+        "x-message-ttl": 5000,
+        "x-dead-letter-exchange": "nuvolo.dlx.exchange",
+        "x-max-length": 10
+      }
     },
     {
       "name": "nuvolo.mail.password.reset",
       "vhost": "/",
-      "durable": true,
+      "durable": false,
       "auto_delete": false,
-      "arguments": {}
+      "arguments": {
+        "x-message-ttl": 5000,
+        "x-dead-letter-exchange": "nuvolo.dlx.exchange",
+        "x-max-length": 10
+      }
     },
     {
       "name": "nuvolo.mail.notification",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
-      "arguments": {}
+      "arguments": {
+        "x-message-ttl": 5000,
+        "x-dead-letter-exchange": "nuvolo.dlx.exchange",
+        "x-max-length": 10
+      }
     }
   ],
   "exchanges": [
@@ -48,6 +60,15 @@
       "name": "nuvolo.direct.exchange",
       "vhost": "/",
       "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "nuvolo.dlx.exchange",
+      "vhost": "/",
+      "type": "fanout",
       "durable": true,
       "auto_delete": false,
       "internal": false,
@@ -77,6 +98,14 @@
       "destination": "nuvolo.mail.notification",
       "destination_type": "queue",
       "routing_key": "notification",
+      "arguments": {}
+    },
+    {
+      "source": "nuvolo.dlx.exchange",
+      "vhost": "/",
+      "destination": "nuvolo.dlx.queue",
+      "destination_type": "queue",
+      "routing_key": "",
       "arguments": {}
     }
   ]
