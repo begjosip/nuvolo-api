@@ -72,6 +72,8 @@ All logs will be written to `logs/nuvolo.log` and when reaching size of 10MB the
 
 ### API Documentation
 
+#### Authentication controller
+
 **POST >** _/api/v1/auth/register_
 
 Description: Registration of new user. Endpoint is not protected and it is publicly available.
@@ -123,7 +125,7 @@ Description: Verification of user with token over email. Endpoint is not protect
 
 ---
 
-**POST >** _/api/v1/auth/request-password-reset
+**POST >** _/api/v1/auth/request-password-reset_
 
 Description: User request forgotten password reset. As a result email with password reset link is sent over email
 service.
@@ -138,7 +140,7 @@ service.
 
 ---
 
-**POST >** _/api/v1/auth/reset-password
+**POST >** _/api/v1/auth/reset-password_
 
 Description: User request password reset.
 
@@ -150,6 +152,41 @@ Description: User request password reset.
     "token": "eee2be08-254f-48f7-b63c-5cc55805219f"
 }
 ```
+
+**200 OK**
+
+
+#### Admin controller
+
+**GET >** _/api/v1/admin/users_
+
+Description: Get list of all users.
+
+**200 OK**
+
+---
+
+**POST >** _/api/v1/admin/discount_
+
+Description: Admin request for discount creation.
+
+```json
+{
+    "name": "Discount Name",
+    "description": "Christmas discount",
+    "discountPercentage": 0.50,
+    "startDate": "2024-06-01T12:00:00",
+    "endDate": "2024-07-30T12:00:00"
+}
+```
+
+**201 CREATED**
+
+---
+
+**GET >** _/api/v1/admin/discount_
+
+Description: Get all discounts.
 
 **200 OK**
 
