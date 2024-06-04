@@ -4,7 +4,6 @@ package com.nuvolo.nuvoloapi.controller;
 import com.nuvolo.nuvoloapi.model.dto.request.UserRequestDto;
 import com.nuvolo.nuvoloapi.model.dto.request.validator.UserDtoValidator;
 import com.nuvolo.nuvoloapi.model.dto.response.UserResponseDto;
-import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
 import com.nuvolo.nuvoloapi.security.JwtService;
 import com.nuvolo.nuvoloapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +39,7 @@ public class AuthenticationController {
                 new UsernamePasswordAuthenticationToken(userRequestDto.getEmail().toLowerCase(),
                         userRequestDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        NuvoloUser user = userService.findUserByEmail(userRequestDto.getEmail().toLowerCase());
-        log.debug("Generating JWT token.");
-        String token = jwtService.generateToken(user.getEmail(), user.getRoles());
-        UserResponseDto userResponse = UserResponseDto.mapAuthenticatedUserEntity(user, token);
+        UserResponseDto userResponse = userService.signInUser(userRequestDto.getEmail().toLowerCase());
         log.debug("User successfully signed in.");
         log.info(" < < < POST /api/v1/auth/sign-in");
         return ResponseEntity.ok().body(userResponse);

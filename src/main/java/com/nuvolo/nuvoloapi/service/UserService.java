@@ -17,6 +17,7 @@ import com.nuvolo.nuvoloapi.repository.ForgottenPassResetRepository;
 import com.nuvolo.nuvoloapi.repository.NuvoloUserRepository;
 import com.nuvolo.nuvoloapi.repository.RoleRepository;
 import com.nuvolo.nuvoloapi.repository.VerificationRepository;
+import com.nuvolo.nuvoloapi.security.JwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,8 @@ public class UserService {
     private final RabbitMqSender rabbitMqSender;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final JwtService jwtService;
 
     @Transactional
     public void registerUser(UserRequestDto userDto) throws Exception {
@@ -174,5 +177,14 @@ public class UserService {
         }
         log.debug("Returning list of all nuvolo users.");
         return users;
+    }
+
+    @Transactional
+    public UserResponseDto signInUser(String email) {
+        NuvoloUser user = findUserByEmail(email);
+        log.debug("Generating JWT token.");
+        String token = jwtService.generateToken(user.getEmail(), user.getRoles());
+        log.debug("Successfully generated token.");
+        return UserResponseDto.mapAuthenticatedUserEntity(user, token);
     }
 }
