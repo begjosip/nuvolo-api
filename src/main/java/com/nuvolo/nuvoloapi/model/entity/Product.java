@@ -1,14 +1,16 @@
 package com.nuvolo.nuvoloapi.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends AuditableEntity {
 
     @Id
@@ -36,7 +38,7 @@ public class Product extends AuditableEntity {
     @JoinColumn(name = "discount_id", foreignKey = @ForeignKey(name = "discount_id"))
     private Discount discount;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "product_inventory_id", nullable = false, foreignKey = @ForeignKey(name = "product_inventory_id"))
     private ProductInventory productInventory;
 

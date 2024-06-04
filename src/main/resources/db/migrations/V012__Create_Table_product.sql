@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS product
     last_modified_at     TIMESTAMP                           NULL,
     FOREIGN KEY (type_id) REFERENCES type (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
-    FOREIGN KEY (product_inventory_id) REFERENCES product_inventory (id) ON DELETE SET NULL,
+    FOREIGN KEY (product_inventory_id) REFERENCES product_inventory (id) ON DELETE CASCADE ,
     FOREIGN KEY (discount_id) REFERENCES discount (id) ON DELETE SET NULL
 );
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(name = "uc_type__name", columnNames = "name"))
 public class Type {
 
     @Id

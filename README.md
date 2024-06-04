@@ -155,7 +155,6 @@ Description: User request password reset.
 
 **200 OK**
 
-
 #### Admin controller
 
 **GET >** _/api/v1/admin/users_
@@ -207,6 +206,23 @@ Description: Admin request for category creation.
 
 ---
 
+**POST >** _/api/v1/admin/product_
+
+Description: Admin request to add product. Attach multipart/form-data with valid images and needed data
+from `ProductRequestDto`
+
+**201 CREATED**
+
+---
+
+**DELETE >** _/api/v1/admin/product/{id}_
+
+Description: Admin request to delete product with given ID.
+
+**204 NO CONTENT**
+
+---
+
 ### Database
 
 #### PostgreSQL
@@ -239,6 +255,7 @@ Redis is used for storing shopping sessions for users. It is using generated ses
 request if session already exists and returns object of `ShoppingSession` instance.
 
 ```java
+
 @Data
 public class ShoppingSession {
     private Long userId;
@@ -249,6 +266,7 @@ public class ShoppingSession {
 ```
 
 ```java
+
 @Data
 public class CartItem {
     private Long productId;

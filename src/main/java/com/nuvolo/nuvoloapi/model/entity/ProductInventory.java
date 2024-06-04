@@ -1,12 +1,14 @@
 package com.nuvolo.nuvoloapi.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductInventory extends AuditableEntity {
 
     @Id
@@ -16,7 +18,5 @@ public class ProductInventory extends AuditableEntity {
     @Column(nullable = false)
     private Integer quantity;
 
-    @OneToOne(mappedBy = "productInventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    private Product product;
 }
 

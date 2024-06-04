@@ -1,11 +1,11 @@
 package com.nuvolo.nuvoloapi.model.enums;
 
 public enum ProductType {
-    WOMENSWEAR,
+    WOMEN,
 
-    MENSWEAR,
+    MENS,
 
     UNISEX,
 
-    KIDSWEAR
+    KIDS;
 }
