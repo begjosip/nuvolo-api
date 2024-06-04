@@ -1,11 +1,14 @@
 package com.nuvolo.nuvoloapi.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uc_category__name", columnNames = "name"))
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category extends AuditableEntity {
 
     @Id

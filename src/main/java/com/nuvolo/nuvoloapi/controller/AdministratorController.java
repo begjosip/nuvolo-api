@@ -1,8 +1,10 @@
 package com.nuvolo.nuvoloapi.controller;
 
+import com.nuvolo.nuvoloapi.model.dto.request.CategoryRequestDto;
 import com.nuvolo.nuvoloapi.model.dto.request.DiscountRequestDto;
 import com.nuvolo.nuvoloapi.model.dto.response.DiscountResponseDto;
 import com.nuvolo.nuvoloapi.model.dto.response.UserResponseDto;
+import com.nuvolo.nuvoloapi.service.CategoryService;
 import com.nuvolo.nuvoloapi.service.DiscountService;
 import com.nuvolo.nuvoloapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ import java.util.List;
 public class AdministratorController {
 
     private final UserService userService;
+
+    private final CategoryService categoryService;
 
     private final DiscountService discountService;
 
@@ -47,4 +51,13 @@ public class AdministratorController {
         log.info(" < < < POST /api/v1/admin/discount");
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PostMapping("/category")
+    public ResponseEntity<Object> createCategory(@Validated @RequestBody CategoryRequestDto categoryRequest) {
+        log.info(" > > > POST /api/v1/admin/category");
+        categoryService.createCategory(categoryRequest);
+        log.info(" < < < POST /api/v1/admin/category");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 }

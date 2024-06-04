@@ -1,9 +1,6 @@
 package com.nuvolo.nuvoloapi.exceptions.handler;
 
-import com.nuvolo.nuvoloapi.exceptions.InvalidDiscountException;
-import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
-import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
-import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
+import com.nuvolo.nuvoloapi.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.amqp.AmqpException;
 import org.springframework.http.HttpStatus;
@@ -137,6 +134,16 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleInvalidDiscountException(InvalidDiscountException ex, HttpServletRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         problemDetail.setTitle("Discount error occurred!");
+        problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidCategoryException.class)
+    public ProblemDetail handleInvalidCategoryException(InvalidCategoryException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problemDetail.setTitle("Category error occurred!");
         problemDetail.setProperty(TIMESTAMP, Instant.now().toString());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;

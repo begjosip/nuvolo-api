@@ -192,6 +192,21 @@ Description: Get all discounts.
 
 ---
 
+**POST >** _/api/v1/admin/category_
+
+Description: Admin request for category creation.
+
+```json
+{
+    "name": "Category Name",
+    "description": "Category description"
+}
+```
+
+**201 CREATED**
+
+---
+
 ### Database
 
 #### PostgreSQL
