@@ -3,8 +3,10 @@ package com.nuvolo.nuvoloapi.model.entity;
 import com.nuvolo.nuvoloapi.model.enums.ProductType;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uc_type__name", columnNames = "name"))
 public class Type {
