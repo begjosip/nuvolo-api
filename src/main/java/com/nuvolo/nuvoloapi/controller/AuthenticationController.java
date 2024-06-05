@@ -1,11 +1,12 @@
 package com.nuvolo.nuvoloapi.controller;
 
 
+import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
 import com.nuvolo.nuvoloapi.model.dto.request.UserRequestDto;
 import com.nuvolo.nuvoloapi.model.dto.request.validator.UserDtoValidator;
 import com.nuvolo.nuvoloapi.model.dto.response.UserResponseDto;
-import com.nuvolo.nuvoloapi.security.JwtService;
 import com.nuvolo.nuvoloapi.service.UserService;
+import com.nuvolo.nuvoloapi.util.HtmlUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,12 @@ public class AuthenticationController {
 
     private final UserService userService;
 
-    private final JwtService jwtService;
-
     private final AuthenticationManager authenticationManager;
 
 
     @PostMapping("/sign-in")
-    public ResponseEntity<Object> signIn(@Validated(UserDtoValidator.SignIn.class) @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<Object> signIn(@Validated(UserDtoValidator.SignIn.class)
+                                         @RequestBody UserRequestDto userRequestDto) {
         log.info(" > > > POST /api/v1/auth/sign-in");
 
         Authentication authentication = authenticationManager.authenticate(
@@ -46,7 +46,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@Validated(UserDtoValidator.Register.class) @RequestBody UserRequestDto userRequestDto) throws Exception {
+    public ResponseEntity<Object> register(@Validated(UserDtoValidator.Register.class)
+                                           @RequestBody UserRequestDto userRequestDto) throws Exception {
         log.info(" > > > POST /api/v1/auth/register");
         userService.registerUser(userRequestDto);
         log.info(" < < < POST /api/v1/auth/register");
@@ -56,15 +57,19 @@ public class AuthenticationController {
     @PostMapping("/verify/{token}")
     public ResponseEntity<Object> verifyUserByToken(@PathVariable String token) {
         log.info(" > > > POST /api/v1/auth/verify/{}", token);
-        userService.verifyUserByToken(token);
+        try {
+            userService.verifyUserByToken(token);
+        } catch (UserVerificationException ex) {
+            log.debug("User verification error occurred.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(HtmlUtil.UNSUCCESSFUL_VERIFICATION_HTML);
+        }
         log.info(" < < < POST /api/v1/auth/verify/{}", token);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(HtmlUtil.SUCCESSFUL_VERIFICATION_HTML);
     }
 
     @PostMapping("/request-password-reset")
     public ResponseEntity<Object> requestPasswordReset(
-            @Validated(UserDtoValidator.PasswordResetRequest.class) @RequestBody UserRequestDto userRequestDto
-    ) {
+            @Validated(UserDtoValidator.PasswordResetRequest.class) @RequestBody UserRequestDto userRequestDto) {
         log.info(" > > > POST /api/v1/auth/request-password-reset");
         userService.requestForgottenPasswordReset(userRequestDto.getEmail());
         log.info(" < < < POST /api/v1/auth/request-password-reset");
