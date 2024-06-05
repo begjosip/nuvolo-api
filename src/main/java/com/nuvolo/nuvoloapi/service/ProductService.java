@@ -93,6 +93,9 @@ public class ProductService {
         if (roundedPrice.compareTo(BigDecimal.ZERO) <= 0) {
             throw new ProductException("Invalid product price. Price needs to more than 0.00.");
         }
+        if (images.length < 1 || images.length > 5) {
+            throw new ProductException("Attach at least one or maximum five images.");
+        }
         for (MultipartFile file : images) {
             if (file.isEmpty())
                 throw new ProductException("No images attached for product.");
