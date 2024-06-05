@@ -1,0 +1,1660 @@
+{
+	"info": {
+		"_postman_id": "f97c4a9d-bce6-472d-8d95-5c5403a33bfc",
+		"name": "nuvolo-development",
+		"description": "API documentation for e-commerce web application \"nuvolo\".",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27880902"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Nuvolo\",\n    \"lastName\": \"Nuvolo\",\n    \"email\": \"nuvolo@mail.com\",\n    \"password\": \"nuvolo00\",\n    \"confirmPassword\": \"nuvolo00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Nuvolo\",\n    \"lastName\": \"Nuvolo\",\n    \"email\": \"nuvolo@mail.com\",\n    \"password\": \"nuvolo00\",\n    \"confirmPassword\": \"nuvolo00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/auth/register",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:07:33 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"nuvolo@mail.com\",\n    \"password\": \"nuvolo00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/auth/sign-in",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "sign-in",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"nuvolo@mail.com\",\n    \"password\": \"nuvolo00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/auth/sign-in",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"sign-in"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:08:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 8,\n    \"firstName\": \"Nuvolo\",\n    \"lastName\": \"Nuvolo\",\n    \"email\": \"nuvolo@mail.com\",\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE3MTc1Nzg0OTksImV4cCI6MTcxNzU3OTM5OX0.hRlKu5_qTeYP_iEOHDTvWCEv--gQIN4nmDfStc63Dp3vfHbOCypRz1ucWvScz2K3HNPunq_84t-iQZuCIpGU0g\",\n    \"isAdmin\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "verify/{token}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/auth/verify/{{$randomUUID}}",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"verify",
+								"{{$randomUUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request-password-reset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"nuvolo@mail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/auth/request-password-reset",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"request-password-reset"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "request-password-reset",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"nuvolo@mail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/auth/request-password-reset",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"request-password-reset"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:08:51 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"nuvolo@mail.com\",\n    \"password\": \"nuvolo00\",\n    \"confirmPassword\": \"nuvolo00\",\n    \"token\": \"4f23314e-95b2-4cb8-aa4b-dcc5fa86058e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/auth/reset-password",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reset-password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"nuvolo@mail.com\",\n    \"password\": \"nuvolo00\",\n    \"confirmPassword\": \"nuvolo00\",\n    \"token\": \"4f23314e-95b2-4cb8-aa4b-dcc5fa86058e\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/auth/reset-password",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:09:43 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "This folder contains API requests and logic related to user authentication and authorization. It includes endpoints for user login, registration, password reset, token generation, and validation."
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNzE3NTc4NjMzLCJleHAiOjE3MTc1Nzk1MzN9.q2t8RPJkIThEqI_jStefe9Nq7LUVgjZ-2aA8lZYuakMAa6jnRXXaITd81p6v28k_pq8zA6LNubLoYy2TzRGVrg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/admin/users",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/admin/users",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:10:45 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 6,\n        \"firstName\": \"Josip\",\n        \"lastName\": \"Begic\",\n        \"email\": \"josipbegic57@gmail.com\",\n        \"isAdmin\": true,\n        \"createdAt\": \"2024-06-05T01:35:44.448375\"\n    },\n    {\n        \"id\": 8,\n        \"firstName\": \"Nuvolo\",\n        \"lastName\": \"Nuvolo\",\n        \"email\": \"nuvolo@mail.com\",\n        \"isAdmin\": true,\n        \"createdAt\": \"2024-06-05T11:07:32.141007\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "discount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNzE3NTc4NjMzLCJleHAiOjE3MTc1Nzk1MzN9.q2t8RPJkIThEqI_jStefe9Nq7LUVgjZ-2aA8lZYuakMAa6jnRXXaITd81p6v28k_pq8zA6LNubLoYy2TzRGVrg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/admin/discount",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"discount"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "discount",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/admin/discount",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"discount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:12:29 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Discount name\",\n        \"description\": \"Discount description\",\n        \"discountPercentage\": 0.2,\n        \"startDate\": \"2025-01-01T12:00:00\",\n        \"endDate\": \"2026-01-01T12:00:00\",\n        \"active\": true,\n        \"createdAt\": \"2024-06-05T11:12:19.769698\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "discount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE3MTc1Nzg0OTksImV4cCI6MTcxNzU3OTM5OX0.hRlKu5_qTeYP_iEOHDTvWCEv--gQIN4nmDfStc63Dp3vfHbOCypRz1ucWvScz2K3HNPunq_84t-iQZuCIpGU0g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Discount name\",\n    \"description\": \"Discount description\",\n    \"discountPercentage\": 0.20,\n    \"startDate\": \"2025-01-01T12:00:00\",\n    \"endDate\": \"2026-01-01T12:00:00\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/admin/discount",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"discount"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "discount",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Discount name\",\n    \"description\": \"Discount description\",\n    \"discountPercentage\": 0.20,\n    \"startDate\": \"2025-01-01T12:00:00\",\n    \"endDate\": \"2026-01-01T12:00:00\" \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/admin/discount",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"discount"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:12:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE3MTc1Nzg0OTksImV4cCI6MTcxNzU3OTM5OX0.hRlKu5_qTeYP_iEOHDTvWCEv--gQIN4nmDfStc63Dp3vfHbOCypRz1ucWvScz2K3HNPunq_84t-iQZuCIpGU0g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Category name\",\n    \"Description\": \"Category description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/admin/category",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"category"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "category",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Nuvolo category\",\n    \"description\": \"Category description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/admin/category",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"category"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:28:48 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE3MTc1Nzg0OTksImV4cCI6MTcxNzU3OTM5OX0.hRlKu5_qTeYP_iEOHDTvWCEv--gQIN4nmDfStc63Dp3vfHbOCypRz1ucWvScz2K3HNPunq_84t-iQZuCIpGU0g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "typeId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Nuvolo product",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Product description",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "100.00",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/home/begjosip/Downloads/nuvolo-tshirt.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/admin/product",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "typeId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Nuvolo product",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Product description",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "100.00",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "images",
+											"type": "file",
+											"src": "/home/begjosip/Downloads/nuvolo-tshirt.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/admin/product",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"product"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:18:51 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "product/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoibnV2b2xvQG1haWwuY29tIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE3MTc1Nzg0OTksImV4cCI6MTcxNzU3OTM5OX0.hRlKu5_qTeYP_iEOHDTvWCEv--gQIN4nmDfStc63Dp3vfHbOCypRz1ucWvScz2K3HNPunq_84t-iQZuCIpGU0g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/admin/product/3",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"product",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "product/{id}",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/admin/product/3",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"product",
+										"3"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:16:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "This folder handles API requests that are specific to administrative tasks and functionalities. It includes endpoints for managing users, system settings, monitoring, and other privileged operations that require admin-level access."
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/product?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Default page number"
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"description": "Default page size"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/product?page=0&size=10",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Default page number"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Default page size"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:15:44 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 16,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/fde83d60-cd19-43c4-9462-813310c4f002.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d7fba6ad8f1831e52cfd44f131b60517de4c18cb17e7cfc9d3b435ff6acf9926\",\n                \"http://localhost:9000/nuvolo.products/9efb20fe-2a98-4dff-ba2b-b1482b0912b0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=81bc70e0edb4efac0f9b7c629eaf306aff1c470b164e66f6e041b552eaab1268\"\n            ]\n        },\n        {\n            \"id\": 15,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/d03889a5-56d1-4f3e-a5e2-f236b9507ff2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2cead3e3ce82546a765128502c05b42069eb267aeae894dd2e66b99680f76762\",\n                \"http://localhost:9000/nuvolo.products/064d773f-09aa-4275-a01d-f037771d265e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=b5bf81d599534b8325dd19cd36f390f28dee59b62346547b30078c491b1b5888\"\n            ]\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/f25d5e1d-dcea-484c-9a61-f4617d301170.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=10df7f5b9662a8c2b8d80249d57f3a38c4901237b6319646406750d48eaa3ca4\",\n                \"http://localhost:9000/nuvolo.products/07e2fd4d-ae60-40c9-bcf1-654e5a192dbc.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=42aecf6d467d7bdd2dc2415a7d60a2805da6801a0bd1e2876adc6a18d3b3b819\"\n            ]\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/5784070d-426e-4b42-a762-26dcb13a9637.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=05b56119f244941e168a5d14f1058174f0f6748e9afbc66c9a1cb71d74ec506b\",\n                \"http://localhost:9000/nuvolo.products/38e3856a-493e-4ac0-8cee-d0ad6fc93866.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2e78a4691ab5cf52d8d98572341e74f8be6fb383af8ea676a084f5da6f2b2cf7\"\n            ]\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/7e66c307-202c-4771-baae-c9402f77bf14.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=2897970550713d97bc152959c43c53230557017b12091b28b81cba1fb19620e5\",\n                \"http://localhost:9000/nuvolo.products/21aadbf0-cf1d-4349-84d3-b1c881e10d37.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=b1264b7c8fdb4f50fdd3050e933ee1b1cfb7165947e876d746a44ccd01b238e4\"\n            ]\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/4455294b-8df6-4a56-af0b-972ecde73a7c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=49e5b2c46a44cb83d930d023ed266e26dbfdd1a9e9b3a194f2d8702774823e63\",\n                \"http://localhost:9000/nuvolo.products/d01a2011-780b-4140-b595-ba9be2c58e2b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a4fa599b93345034d63e7c9bfe8c6e6a2a518c7197ee69d86e9fa90281788e5f\"\n            ]\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/7985d84c-e46b-4f56-ab43-46afb136221f.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7812d07140f076a07a6ef94886899ff7d6abacb5ba1e25b3a91b844954a0a4fa\",\n                \"http://localhost:9000/nuvolo.products/49a49a44-be7e-4e64-8d89-9396911e8551.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7e2c37c2b0676d26675cf14a6f84a13a8063a66891ddd9a13b54317a4c9cdbb0\"\n            ]\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/21efd9b2-2b4b-49de-ba52-13e54014d86e.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=215c4f97a150b145ff56ad44443242b8085f4152db30f60fa27438df881b37a2\",\n                \"http://localhost:9000/nuvolo.products/5d48ca22-e4f4-47b7-ac04-8429a23734c7.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ea3c77b9d48d2225113de16b7fca79ea97d2fcd945124204453bb4a62c82c370\"\n            ]\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/e6bb23e4-66b4-4f7c-8770-f6b9e407e60a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9854304060a62e2e5f6d5026fc4bfd29915829bdb40dfed354c604feea99c5ad\",\n                \"http://localhost:9000/nuvolo.products/dbf1004c-dc24-4533-95e5-97b8744ffe3b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9bd2680d97123a20b059a7a734840bb52537e7a6e63a97dad705096ee9c6afd2\"\n            ]\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Test product\",\n            \"description\": \"Test\",\n            \"typeName\": \"WOMEN\",\n            \"categoryName\": \"Shorts\",\n            \"price\": 100.24,\n            \"imagesUrls\": [\n                \"http://localhost:9000/nuvolo.products/8f84d3c8-062e-45d5-bafa-15d2877b831e.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9587813d5aa8525e4c02bcb91d1d63267844a91aea27111451b0dad76d876796\",\n                \"http://localhost:9000/nuvolo.products/c3b6c35f-aa61-4ec0-a571-93177eee0541.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091544Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8ee811f9704ebdefcee1851a2ae0f0288309fcedff00c398911cec84f89511db\"\n            ]\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"sort\": {\n            \"sorted\": false,\n            \"unsorted\": true,\n            \"empty\": true\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"totalPages\": 2,\n    \"totalElements\": 15,\n    \"last\": false,\n    \"first\": true,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"sorted\": false,\n        \"unsorted\": true,\n        \"empty\": true\n    },\n    \"numberOfElements\": 10,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "product/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/product/2",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "product/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/product/2",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:16:29 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"Test product\",\n    \"description\": \"Test\",\n    \"typeName\": \"WOMEN\",\n    \"categoryName\": \"Shorts\",\n    \"price\": 100.24,\n    \"imagesUrls\": [\n        \"http://localhost:9000/nuvolo.products/c2b49d07-380a-485b-b029-c340378f04c8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091629Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=ce41b7ee0f23993b1e951c5dfa06c87357adf85f52aae843b94d6b87e1b6fd39\",\n        \"http://localhost:9000/nuvolo.products/b0fef27c-ba72-4624-932e-ce81b4626fd6.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091629Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=6d15496c01d55f1f932a65560fe363571d114471cbb19c2566688ba7f682b88f\",\n        \"http://localhost:9000/nuvolo.products/893329bd-8886-42f1-a6a6-cc549ca1acd2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091629Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=eda5fd75abcc7fe8fcb4fcf57d41cfa804c6cb33a21f14c6abd801bd16119c8c\",\n        \"http://localhost:9000/nuvolo.products/a36ab498-e026-4fc6-a185-9aca0afedaf0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091629Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=3d4861b25dd6706fb1573065345a05cda343c0e714ae596133bd44da5eb39cfe\",\n        \"http://localhost:9000/nuvolo.products/dff6e43e-cfac-4dd9-8ce0-4c431eb0753e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nuvolo_minio%2F20240605%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240605T091629Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=f53d715f6da1cdb84905670a5780983f03ea48ad581260d890b49bc66ca609f0\"\n    ]\n}"
+						}
+					]
+				}
+			],
+			"description": "This folder is responsible for API requests related to product management. It includes endpoints for creating, updating, deleting, and retrieving product information, as well as managing product-related data such as inventory, pricing, and descriptions."
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host_port}}/api/v1/category",
+							"protocol": "http",
+							"host": [
+								"{{host_port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"category"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{host_port}}/api/v1/category",
+									"protocol": "http",
+									"host": [
+										"{{host_port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"category"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2024 09:29:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Shorts\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"T-Shirt\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Category name\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Nuvolo category\",\n        \"description\": \"Category description\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "This folder contains API requests for managing product categories. It includes endpoints for creating, updating, deleting, and retrieving category information, organizing products into categories, and handling category-specific queries."
+		}
+	]
+}

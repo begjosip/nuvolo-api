@@ -19,6 +19,21 @@
 </div>
 
 ---
+### Table of content
+
+- [Description](#description)
+- [Requirements](#requirements)
+- [Instructions](#instructions)
+- [API Documentation](#api-documentation)
+    * [Authentication controller](#authentication-controller)
+    * [Admin controller](#admin-controller)
+    * [Product controller](#product-controller)
+    * [Category controller](#category-controller)
+- [Database](#database)
+    * [PostgreSQL](#postgresql)
+    * [Redis](#redis)
+
+---
 
 ### Description
 
@@ -72,154 +87,62 @@ All logs will be written to `logs/nuvolo.log` and when reaching size of 10MB the
 
 ### API Documentation
 
+There is _Postman_ collection provided ```http/nuvolo.postman_collection.json```. Import it using `Postman` or go
+checkout published API documentation on _https://documenter.getpostman.com/view/27880902/2sA3QzZ82L_.
+
+
 #### Authentication controller
 
-**POST >** _/api/v1/auth/register_
+
+
+**POST > >**   _/api/v1/auth/register_
 
 Description: Registration of new user. Endpoint is not protected and it is publicly available.
-
-```json
-{
-    "firstName": "Nuvolo",
-    "lastName": "Nuvolo",
-    "email": "nuvolo@nuvolo.com",
-    "password": "nuvolo!?",
-    "confirmPassword": "nuvolo!?"
-}
-```
-
-**201 CREATED**
-
----
 
 **POST >** _/api/v1/auth/sign-in_
 
 Description: Sign in. Endpoint is not protected and it is publicly available.
 
-```json
-{
-    "email": "nuvolo@nuvolo.com",
-    "password": "nuvolo!?"
-}
-```
-
-**200 OK**
-
-```json
-{
-    "id": 59,
-    "firstName": "Nuvolo",
-    "lastName": "Nuvolo",
-    "email": "nuvolo@nuvolo.com",
-    "token": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJudXZvbG8tYXBpIiwic3ViIjoiam9zaXBiZWdpYzU3QGdtYWlsLmNvbSIsInJvbGVzIjpbIlVTRVIiXSwiaWF0IjoxNzE2MzM0MTEwLCJleHAiOjE3MTYzMzUwMTB9.7aWyab10ppubQQ9Ty0zDG994qUWuXpOkCfvBTYRUhjN8kZxI8XchXQK-4iYwZY198pOc8MQhw7knYBTA3yzLIw"
-}
-```
-
----
-
 **POST >** _/api/v1/auth/verify/{token}_
 
 Description: Verification of user with token over email. Endpoint is not protected and it is publicly available.
-
-**200 OK**
-
----
 
 **POST >** _/api/v1/auth/request-password-reset_
 
 Description: User request forgotten password reset. As a result email with password reset link is sent over email
 service.
 
-```json
-{
-    "email": "nuvolo@nuvolo.com"
-}
-```
-
-**200 OK**
-
----
-
 **POST >** _/api/v1/auth/reset-password_
 
 Description: User request password reset.
 
-```json
-{
-    "email": "nuvolo@nuvolo.com",
-    "password": "nuvolo!?",
-    "confirmPassword": "nuvolo!?",
-    "token": "eee2be08-254f-48f7-b63c-5cc55805219f"
-}
-```
-
-**200 OK**
-
+---
 #### Admin controller
 
 **GET >** _/api/v1/admin/users_
 
 Description: Get list of all users.
 
-**200 OK**
-
----
-
 **POST >** _/api/v1/admin/discount_
 
 Description: Admin request for discount creation.
-
-```json
-{
-    "name": "Discount Name",
-    "description": "Christmas discount",
-    "discountPercentage": 0.50,
-    "startDate": "2024-06-01T12:00:00",
-    "endDate": "2024-07-30T12:00:00"
-}
-```
-
-**201 CREATED**
-
----
 
 **GET >** _/api/v1/admin/discount_
 
 Description: Get all discounts.
 
-**200 OK**
-
----
-
 **POST >** _/api/v1/admin/category_
 
 Description: Admin request for category creation.
-
-```json
-{
-    "name": "Category Name",
-    "description": "Category description"
-}
-```
-
-**201 CREATED**
-
----
 
 **POST >** _/api/v1/admin/product_
 
 Description: Admin request to add product. Attach multipart/form-data with valid images and needed data
 from `ProductRequestDto`
 
-**201 CREATED**
-
----
-
 **DELETE >** _/api/v1/admin/product/{id}_
 
 Description: Admin request to delete product with given ID.
-
-**204 NO CONTENT**
 
 ---
 
@@ -227,23 +150,25 @@ Description: Admin request to delete product with given ID.
 
 **GET >** _/api/v1/product_
 
-Description: Request for all products. Paging is implemented and default values are 0 and 10. 
+Description: Request for all products. Paging is implemented and default values are 0 and 10.
+
 ```
 @RequestParam(defaultValue = "0") int page
 @RequestParam(defaultValue = "10") int size
 ```
 
-**200 OK**
-
----
-
 **GET >** _/api/v1/product/{id}_
 
 Description: Request for specific product with ID.
 
-**200 OK**
+---
+
+#### Category controller
+
+**GET >** _/api/v1/category_
 
 ---
+
 
 ### Database
 
@@ -268,6 +193,7 @@ be able to run.
 | order_item         | Stores information about ordered products.            |
 | review             | Stores data about product reviews.                    |
 | forgotten_password | Stores data about forgotten passwords reset requests. |
+| product_image      | Stores data about product images.                     |
 
 --- 
 
