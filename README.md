@@ -20,6 +20,7 @@
 </div>
 
 ---
+
 ### Table of content
 
 - [Description](#description)
@@ -53,6 +54,7 @@ product CRUD operations, shopping cart management, and integration with payment 
 - **PostgreSQL 15**
 - **RabbitMQ 3.13**
 - **Redis**
+- **Minio**
 
 ---
 
@@ -75,7 +77,7 @@ Positioned in project directory correctly change directory to `docker` with `cd 
 
 `docker compose up -d`
 
-This will set up **postgres**, **rabbitmq** and **redis** containers for local development.
+This will set up **postgres**, **rabbitmq**, **redis** and **minio** containers for local development.
 
 At this moment application has two application properties files.
 Default one `application.properties` and properties for development environment `application-dev.properties`. For
@@ -93,10 +95,7 @@ All logs will be written to `logs/nuvolo.log` and when reaching size of 10MB the
 There is _Postman_ collection provided ```http/nuvolo.postman_collection.json```. Import it using `Postman` or go
 checkout published API documentation on _https://documenter.getpostman.com/view/27880902/2sA3QzZ82L_.
 
-
 #### Authentication controller
-
-
 
 **POST > >**   _/api/v1/auth/register_
 
@@ -120,6 +119,7 @@ service.
 Description: User request password reset.
 
 ---
+
 #### Admin controller
 
 **GET >** _/api/v1/admin/users_
@@ -171,7 +171,6 @@ Description: Request for specific product with ID.
 **GET >** _/api/v1/category_
 
 ---
-
 
 ### Database
 
@@ -226,6 +225,16 @@ public class CartItem {
 ```
 
 ---
+
+### Minio - Object Storage system
+
+Minio is high performance object storage system used in project for storing product images.
+Images are stored with _UUID_ and extension. User can access product images over image URL provided by backend in HTTP
+response.
+
+
+---
+
 ### Testing
 
 Code is covered utilizing JUnit5 and MockitoFramework along with SonarLint for clean code.
