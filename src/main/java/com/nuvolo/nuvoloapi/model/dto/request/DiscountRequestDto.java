@@ -1,12 +1,14 @@
 package com.nuvolo.nuvoloapi.model.dto.request;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 public class DiscountRequestDto {
 
     private Long id;
