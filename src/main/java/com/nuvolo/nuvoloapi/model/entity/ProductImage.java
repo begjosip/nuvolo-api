@@ -3,15 +3,13 @@ package com.nuvolo.nuvoloapi.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uc_product_image__image_no", columnNames = "imageNo"))
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ProductImage {
+public class ProductImage extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +25,4 @@ public class ProductImage {
     @JoinColumn(nullable = false)
     private Product product;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    private LocalDateTime lastModifiedAt;
 }
