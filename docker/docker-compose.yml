@@ -45,7 +45,7 @@ services:
   minio:
     image: minio/minio
     container_name: minio
-    command: server /data
+    command: server --console-address ":9001" /data
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -56,8 +56,6 @@ services:
     environment:
       - MINIO_ROOT_USER=nuvolo_minio
       - MINIO_ROOT_PASSWORD=nuvolo_minio
-      - MINIO_DEFAULT_BUCKETS=nuvolo_bucket
-
 
 volumes:
   postgres_data:
