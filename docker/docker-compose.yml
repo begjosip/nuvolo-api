@@ -42,13 +42,33 @@ services:
     networks:
       - rabbitmq_network
 
+  minio:
+    image: minio/minio
+    container_name: minio
+    command: server /data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - minionetwork
+    volumes:
+      - 'minio_data:/data'
+    environment:
+      - MINIO_ROOT_USER=nuvolo_minio
+      - MINIO_ROOT_PASSWORD=nuvolo_minio
+      - MINIO_DEFAULT_BUCKETS=nuvolo_bucket
+
 
 volumes:
   postgres_data:
   redis_data:
+  minio_data:
+    driver: local
 
 networks:
   redis_network:
     driver: bridge
   rabbitmq_network:
+    driver: bridge
+  minionetwork:
     driver: bridge
