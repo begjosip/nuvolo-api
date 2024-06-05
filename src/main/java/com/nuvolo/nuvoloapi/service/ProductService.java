@@ -1,11 +1,11 @@
 package com.nuvolo.nuvoloapi.service;
 
 import com.nuvolo.nuvoloapi.exceptions.ProductException;
+import com.nuvolo.nuvoloapi.minio.MinioService;
 import com.nuvolo.nuvoloapi.model.dto.request.ProductRequestDto;
-import com.nuvolo.nuvoloapi.model.entity.Category;
-import com.nuvolo.nuvoloapi.model.entity.Product;
-import com.nuvolo.nuvoloapi.model.entity.ProductInventory;
-import com.nuvolo.nuvoloapi.model.entity.Type;
+import com.nuvolo.nuvoloapi.model.dto.response.ProductResponseDto;
+import com.nuvolo.nuvoloapi.model.entity.*;
+import com.nuvolo.nuvoloapi.repository.ProductImageRepository;
 import com.nuvolo.nuvoloapi.repository.ProductInventoryRepository;
 import com.nuvolo.nuvoloapi.repository.ProductRepository;
 import com.nuvolo.nuvoloapi.repository.TypeRepository;
@@ -13,11 +13,18 @@ import com.nuvolo.nuvoloapi.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +33,11 @@ public class ProductService {
 
     private final CategoryService categoryService;
 
+    private final MinioService minioService;
+
     private final ProductRepository productRepository;
+
+    private final ProductImageRepository productImageRepository;
 
     private final ProductInventoryRepository productInventoryRepository;
 
@@ -55,13 +66,22 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         log.debug("Product with ID:{} saved to database.", savedProduct.getId());
 
-        try {
-            FileUtil.saveProductImages(savedProduct, images);
-            log.debug("Successfully saved all product images.");
-        } catch (Exception ex) {
-            log.error("Error occurred while trying to save product images.");
-            FileUtil.deleteProductImages(savedProduct.getId());
+        List<ProductImage> savedProductImages = this.saveProductImages(savedProduct, images);
+        minioService.uploadProductImages(savedProductImages, images);
+    }
+
+    private List<ProductImage> saveProductImages(Product product, MultipartFile[] images) {
+        log.debug("Saving product images to database.");
+        List<ProductImage> productImages = new ArrayList<>();
+        for (MultipartFile image : images) {
+            ProductImage imageEntity = ProductImage.builder()
+                    .imageNo(UUID.randomUUID().toString())
+                    .extension(FilenameUtils.getExtension(image.getOriginalFilename()))
+                    .product(product)
+                    .build();
+            productImages.add(imageEntity);
         }
+        return productImageRepository.saveAll(productImages);
     }
 
     private void validateProductRequest(ProductRequestDto productRequest, MultipartFile[] images) {
@@ -98,7 +118,39 @@ public class ProductService {
         log.debug("Deleting product with ID: {}", id);
         productRepository.deleteById(id);
         log.debug("Successfully deleted product with ID: {}", id);
-        FileUtil.deleteProductImages(id);
+        minioService.deleteProductImages(productImageRepository.findAllByProductId(id));
         log.debug("Successfully deleted product images.");
+    }
+
+
+    @Transactional
+    public Page<ProductResponseDto> getProducts(Integer pageNo, Integer pageSize) {
+        log.debug("Fetching products page from database.");
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Product> productsPage = productRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return productsPage.map(product -> {
+            List<ProductImage> productImages = productImageRepository.findAllByProductId(product.getId());
+            List<String> imagesUrls = productImages.stream()
+                    .map(productImage ->
+                            minioService.getImageUrl(productImage.getImageNo().concat(".").concat(productImage.getExtension()))
+                    ).toList();
+            return ProductResponseDto.mapProductEntity(product, imagesUrls);
+        });
+    }
+
+    @Transactional
+    public Product findProductById(Long id) {
+        log.debug("Finding product with ID: {}", id);
+        return productRepository.findById(id).orElseThrow(() -> new ProductException("Can not find product with given ID."));
+    }
+
+    @Transactional
+    public ProductResponseDto getProductWithId(Long id) {
+        log.debug("Fetching product with ID: {}", id);
+        List<String> imagesUrls = productImageRepository.findAllByProductId(id)
+                .stream().map(productImage ->
+                        minioService.getImageUrl(productImage.getImageNo().concat(".").concat(productImage.getExtension()))
+                ).toList();
+        return ProductResponseDto.mapProductEntity(findProductById(id), imagesUrls);
     }
 }

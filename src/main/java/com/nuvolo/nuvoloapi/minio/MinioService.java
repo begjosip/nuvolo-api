@@ -53,7 +53,7 @@ public class MinioService {
                             .method(Method.GET)
                             .bucket(minioComponent.getProductsBucket())
                             .object(imageUrl)
-                            .expiry(7, TimeUnit.DAYS) // URL valid for 7 days
+                            .expiry(7, TimeUnit.DAYS)
                             .build());
         } catch (Exception ex) {
             log.error(ex.getMessage());
