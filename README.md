@@ -14,6 +14,7 @@
 ![Hibernate: Hibernate](https://img.shields.io/badge/-hibernate-%235A5539?style=for-the-badge&logo=hibernate&logoColor=white)
 ![JUnit5: JUnit5](https://img.shields.io/badge/-junit5-%2325a162?style=for-the-badge&logo=junit5&logoColor=white)
 ![Docker: Docker](https://img.shields.io/badge/-docker-%230db7ed?style=for-the-badge&logo=docker&logoColor=white)
+![GithubActions: GithubActions](https://img.shields.io/badge/-GithubActions-%232B3137?style=for-the-badge&logo=githubactions&logoColor=white)
 ![SonarLint: SonarLint](https://img.shields.io/badge/-SonarLint-%23301934?style=for-the-badge&logo=SonarLint&logoColor=white)
 
 </div>
@@ -32,6 +33,8 @@
 - [Database](#database)
     * [PostgreSQL](#postgresql)
     * [Redis](#redis)
+- [Testing](#testing)
+- [Contact](#contact)
 
 ---
 
@@ -222,7 +225,16 @@ public class CartItem {
 }
 ```
 
+---
+### Testing
 
+Code is covered utilizing JUnit5 and MockitoFramework along with SonarLint for clean code.
+
+---
+
+### Contact
+
+For any additional contact you can find information on my personal website https://begjosip.github.io/.
 
 
 
