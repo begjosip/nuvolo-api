@@ -33,7 +33,8 @@ class CategoryServiceTest {
         CategoryRequestDto requestDto = this.createTestCategoryRequestDto();
         Category category = this.createTestCategoryEntity();
         when(categoryRepository.findByName(requestDto.getName())).thenReturn(Optional.ofNullable(category));
-        assertThrows(InvalidCategoryException.class, () -> categoryService.createCategory(requestDto));
+        var exception = assertThrows(InvalidCategoryException.class, () -> categoryService.createCategory(requestDto));
+        assertEquals("Category with given name already exists.", exception.getMessage());
         verify(categoryRepository, never()).save(any(Category.class));
     }
 
@@ -50,7 +51,8 @@ class CategoryServiceTest {
     @Test
     void testFindCategoryById_categoryDoesNotExist() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(InvalidCategoryException.class, () -> categoryService.findCategoryById(1L));
+        var exception = assertThrows(InvalidCategoryException.class, () -> categoryService.findCategoryById(1L));
+        assertEquals("Category with ID: 1 does not exist", exception.getMessage());
     }
 
     @Test

@@ -62,7 +62,7 @@ class DiscountServiceTest {
                 .startDate(LocalDateTime.now().minusDays(1))
                 .endDate(LocalDateTime.now().plusDays(2))
                 .build();
-        InvalidDiscountException exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
+        var exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
         assertEquals("Discount start date needs to be after current date.", exception.getMessage());
         verify(discountRepository, never()).save(any(Discount.class));
     }
@@ -76,7 +76,7 @@ class DiscountServiceTest {
                 .startDate(LocalDateTime.now().plusDays(2))
                 .endDate(LocalDateTime.now().plusDays(1))
                 .build();
-        InvalidDiscountException exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
+        var exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
         assertEquals("Discount end date needs to be after start date.", exception.getMessage());
         verify(discountRepository, never()).save(any(Discount.class));
     }
@@ -90,7 +90,7 @@ class DiscountServiceTest {
                 .startDate(LocalDateTime.now().plusDays(1))
                 .endDate(LocalDateTime.now().plusDays(2))
                 .build();
-        InvalidDiscountException exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
+        var exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
         assertEquals("Invalid discount percentage. Percentage needs to be between 0.00 and 1.00 both excluded.", exception.getMessage());
         verify(discountRepository, never()).save(any(Discount.class));
     }
@@ -104,7 +104,7 @@ class DiscountServiceTest {
                 .startDate(LocalDateTime.now().plusDays(1))
                 .endDate(LocalDateTime.now().plusDays(2))
                 .build();
-        InvalidDiscountException exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
+        var exception = assertThrows(InvalidDiscountException.class, () -> discountService.createDiscount(invalidDiscountRequest));
         assertEquals("Invalid discount percentage. Percentage needs to be between 0.00 and 1.00 both excluded.", exception.getMessage());
         verify(discountRepository, never()).save(any(Discount.class));
     }
