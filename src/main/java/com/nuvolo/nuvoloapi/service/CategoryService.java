@@ -2,12 +2,16 @@ package com.nuvolo.nuvoloapi.service;
 
 import com.nuvolo.nuvoloapi.exceptions.InvalidCategoryException;
 import com.nuvolo.nuvoloapi.model.dto.request.CategoryRequestDto;
+import com.nuvolo.nuvoloapi.model.dto.response.CategoryResponseDto;
 import com.nuvolo.nuvoloapi.model.entity.Category;
 import com.nuvolo.nuvoloapi.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +38,16 @@ public class CategoryService {
         log.debug("Finding product category with ID: {}", categoryId);
         return categoryRepository.findById(categoryId).orElseThrow(() -> new InvalidCategoryException(
                 String.format("Category with ID: %s does not exist", categoryId)));
+    }
+
+    public List<CategoryResponseDto> getAllCategories() {
+        log.debug("Fetching all categories from database.");
+        List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty()) {
+            log.debug("No categories saved in database. Returning empty list.");
+            return Collections.emptyList();
+        }
+        log.debug("Successfully retrieved categories from database.");
+        return categories.stream().map(CategoryResponseDto::mapCategoryEntity).toList();
     }
 }
