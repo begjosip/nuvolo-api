@@ -223,6 +223,28 @@ Description: Admin request to delete product with given ID.
 
 ---
 
+#### Product controller
+
+**GET >** _/api/v1/product_
+
+Description: Request for all products. Paging is implemented and default values are 0 and 10. 
+```
+@RequestParam(defaultValue = "0") int page
+@RequestParam(defaultValue = "10") int size
+```
+
+**200 OK**
+
+---
+
+**GET >** _/api/v1/product/{id}_
+
+Description: Request for specific product with ID.
+
+**200 OK**
+
+---
+
 ### Database
 
 #### PostgreSQL
