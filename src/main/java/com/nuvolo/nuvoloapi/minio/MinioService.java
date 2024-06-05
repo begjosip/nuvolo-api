@@ -3,12 +3,14 @@ package com.nuvolo.nuvoloapi.minio;
 import com.nuvolo.nuvoloapi.exceptions.ProductException;
 import com.nuvolo.nuvoloapi.model.entity.ProductImage;
 import io.minio.*;
+import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,22 @@ public class MinioService {
                                 .build());
                 log.debug("Successfully saved file {} to bucket.", imagePath);
             }
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new ProductException(ex.getMessage());
+        }
+    }
+
+    public String getImageUrl(String imageUrl) {
+        try {
+            log.debug("Returning image url.");
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .method(Method.GET)
+                            .bucket(minioComponent.getProductsBucket())
+                            .object(imageUrl)
+                            .expiry(7, TimeUnit.DAYS) // URL valid for 7 days
+                            .build());
         } catch (Exception ex) {
             log.error(ex.getMessage());
             throw new ProductException(ex.getMessage());
