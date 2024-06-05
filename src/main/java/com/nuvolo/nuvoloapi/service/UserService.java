@@ -1,9 +1,6 @@
 package com.nuvolo.nuvoloapi.service;
 
-import com.nuvolo.nuvoloapi.exceptions.ForgottenPasswordException;
-import com.nuvolo.nuvoloapi.exceptions.InvalidPasswordException;
-import com.nuvolo.nuvoloapi.exceptions.UserVerificationException;
-import com.nuvolo.nuvoloapi.exceptions.UserWithEmailAlreadyExists;
+import com.nuvolo.nuvoloapi.exceptions.*;
 import com.nuvolo.nuvoloapi.model.dto.request.UserRequestDto;
 import com.nuvolo.nuvoloapi.model.dto.response.UserResponseDto;
 import com.nuvolo.nuvoloapi.model.entity.ForgottenPassReset;
@@ -61,7 +58,7 @@ public class UserService {
                 .email(userDto.getEmail().toLowerCase())
                 .isEnabled(false)
                 .roles(List.of(roleRepository.findByName(RoleName.USER)
-                        .orElseThrow(() -> new Exception("Role with name USER does not exist in database.")))
+                        .orElseThrow(() -> new UserRoleException("Role with name USER does not exist in database.")))
                 )
                 .build();
         log.debug("Saving user entity to database.");
@@ -116,7 +113,7 @@ public class UserService {
         }
         ForgottenPassReset forgottenPassReset = ForgottenPassReset.builder()
                 .token(UUID.randomUUID().toString())
-                .utilised(false)
+                .utilised(Boolean.FALSE)
                 .user(user)
                 .build();
         log.debug("Saving user forgotten password reset entity to database");
@@ -133,8 +130,7 @@ public class UserService {
     @Transactional
     public void resetForgottenPassword(UserRequestDto userRequestDto) {
         log.debug("Resetting user password by token.");
-        NuvoloUser user = userRepository.findByEmail(userRequestDto.getEmail()).
-                orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s email not found.", userRequestDto.getEmail())));
+        NuvoloUser user = findUserByEmail(userRequestDto.getEmail());
         ForgottenPassReset forgottenPassReset = forgottenPassResetRepository.findFirstByUserAndTokenAndUtilisedAndCreatedAtAfter
                         (user, userRequestDto.getToken(), Boolean.FALSE, LocalDateTime.now().minusDays(5))
                 .orElseThrow(() -> new ForgottenPasswordException("No valid password reset requests found in 5 days. Send new request!"));

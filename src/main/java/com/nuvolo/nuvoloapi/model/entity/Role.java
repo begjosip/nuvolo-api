@@ -3,8 +3,10 @@ package com.nuvolo.nuvoloapi.model.entity;
 import com.nuvolo.nuvoloapi.model.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 public class Role {
 
