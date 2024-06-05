@@ -36,6 +36,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'com.h2database:h2:2.2.224'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

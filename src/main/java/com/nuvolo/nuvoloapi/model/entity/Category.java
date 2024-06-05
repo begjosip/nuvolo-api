@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uc_category__name", columnNames = "name"))
 @Builder
