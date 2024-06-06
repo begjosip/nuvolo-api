@@ -1,5 +1,8 @@
 CREATE TABLE IF NOT EXISTS role
 (
     id   BIGSERIAL PRIMARY KEY,
-    name VARCHAR(10) NOT NULL UNIQUE
+    name VARCHAR(10) NOT NULL
 );
+
+ALTER TABLE role
+    ADD CONSTRAINT uc_role__name UNIQUE (name);
