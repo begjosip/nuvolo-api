@@ -1,16 +1,11 @@
--- Insert initial type data only if it does not already exist
 INSERT INTO type (name)
-VALUES ('WOMEN')
-ON CONFLICT (name) DO NOTHING;
+VALUES ('WOMEN');
 
 INSERT INTO type (name)
-VALUES ('MEN')
-ON CONFLICT (name) DO NOTHING;
+VALUES ('MEN');
 
 INSERT INTO type (name)
-VALUES ('UNISEX')
-ON CONFLICT (name) DO NOTHING;
+VALUES ('UNISEX');
 
 INSERT INTO type (name)
-VALUES ('KIDS')
-ON CONFLICT (name) DO NOTHING;
+VALUES ('KIDS');
