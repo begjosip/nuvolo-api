@@ -15,22 +15,3 @@ CREATE TABLE IF NOT EXISTS product
     FOREIGN KEY (product_inventory_id) REFERENCES product_inventory (id) ON DELETE CASCADE ,
     FOREIGN KEY (discount_id) REFERENCES discount (id) ON DELETE SET NULL
 );
-
--- Function to validate price
-CREATE OR REPLACE FUNCTION validate_price()
-    RETURNS TRIGGER AS
-$$
-BEGIN
-    IF NEW.price < 0 THEN
-        RAISE EXCEPTION 'Price must be greater than 0';
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Trigger to validate price before insert or update
-CREATE TRIGGER validate_price_trigger
-    BEFORE INSERT OR UPDATE
-    ON product
-    FOR EACH ROW
-EXECUTE FUNCTION validate_price();
