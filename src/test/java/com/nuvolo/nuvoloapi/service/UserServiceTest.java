@@ -326,13 +326,13 @@ class UserServiceTest {
     }
 
     private UserRequestDto createValidUserRegistrationRequestDto() {
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setFirstName(TEST_NAME);
-        userRequestDto.setLastName(TEST_NAME);
-        userRequestDto.setEmail(TEST_EMAIL);
-        userRequestDto.setPassword(TEST_PASSWORD);
-        userRequestDto.setConfirmPassword(TEST_PASSWORD);
-        return userRequestDto;
+        return UserRequestDto.builder()
+                .firstName(TEST_NAME)
+                .lastName(TEST_NAME)
+                .email(TEST_EMAIL)
+                .password(TEST_PASSWORD)
+                .confirmPassword(TEST_PASSWORD)
+                .build();
     }
 
     private ForgottenPassReset createValidForgottenPassReset() {
@@ -345,20 +345,20 @@ class UserServiceTest {
     }
 
     private UserRequestDto createValidPasswordResetRequest() {
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setEmail(TEST_EMAIL);
-        userRequestDto.setPassword(TEST_PASSWORD);
-        userRequestDto.setConfirmPassword(TEST_PASSWORD);
-        userRequestDto.setToken(TEST_RESET_TOKEN);
-        return userRequestDto;
+        return UserRequestDto.builder()
+                .email(TEST_EMAIL)
+                .password(TEST_PASSWORD)
+                .confirmPassword(TEST_PASSWORD)
+                .token(TEST_RESET_TOKEN)
+                .build();
     }
 
     private UserRequestDto createInvalidConfirmPasswordRequest() {
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setEmail(TEST_EMAIL);
-        userRequestDto.setPassword(TEST_PASSWORD);
-        userRequestDto.setConfirmPassword(TEST_PASSWORD + ".");
-        userRequestDto.setToken(TEST_RESET_TOKEN);
-        return userRequestDto;
+        return UserRequestDto.builder()
+                .email(TEST_EMAIL)
+                .password(TEST_PASSWORD)
+                .confirmPassword(TEST_PASSWORD.concat("."))
+                .token(TEST_RESET_TOKEN)
+                .build();
     }
 }

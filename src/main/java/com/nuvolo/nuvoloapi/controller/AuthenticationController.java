@@ -10,6 +10,7 @@ import com.nuvolo.nuvoloapi.util.HtmlUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,7 +55,7 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/verify/{token}")
+    @PostMapping(value = "/verify/{token}", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Object> verifyUserByToken(@PathVariable String token) {
         log.info(" > > > POST /api/v1/auth/verify/{}", token);
         try {
@@ -64,7 +65,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(HtmlUtil.UNSUCCESSFUL_VERIFICATION_HTML);
         }
         log.info(" < < < POST /api/v1/auth/verify/{}", token);
-        return ResponseEntity.ok(HtmlUtil.SUCCESSFUL_VERIFICATION_HTML);
+        return ResponseEntity.ok().body(HtmlUtil.SUCCESSFUL_VERIFICATION_HTML);
     }
 
     @PostMapping("/request-password-reset")

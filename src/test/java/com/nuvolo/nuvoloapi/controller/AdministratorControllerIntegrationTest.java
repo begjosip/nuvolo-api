@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql(scripts = {"/sql/Insert_test_discount.sql", "/sql/Insert_test_users.sql", "/sql/Insert_test_category.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
-@Sql(scripts = {"/sql/Insert_test_discount.sql", "/sql/cleanup.sql"},
+@Sql(scripts = {"/sql/cleanup.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_CLASS)
 @ActiveProfiles("test")
 @DirtiesContext(
