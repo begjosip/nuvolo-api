@@ -21,6 +21,8 @@ public class UserResponseDto {
 
     private String token;
 
+    private Boolean isEnabled;
+
     private Boolean isAdmin;
 
     private LocalDateTime createdAt;
@@ -43,6 +45,7 @@ public class UserResponseDto {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .isAdmin(user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMIN)))
+                .isEnabled(user.getIsEnabled())
                 .createdAt(user.getCreatedAt())
                 .build();
     }

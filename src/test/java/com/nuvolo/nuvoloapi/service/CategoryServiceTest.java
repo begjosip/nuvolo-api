@@ -84,10 +84,10 @@ class CategoryServiceTest {
 
 
     private CategoryRequestDto createTestCategoryRequestDto() {
-        CategoryRequestDto requestDto = new CategoryRequestDto();
-        requestDto.setName("Test Category");
-        requestDto.setDescription("Test Description");
-        return requestDto;
+        return CategoryRequestDto.builder()
+                .name("Test Category")
+                .description("Test Description")
+                .build();
     }
 
     private Category createTestCategoryEntity() {

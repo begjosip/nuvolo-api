@@ -108,8 +108,7 @@ class ProductServiceTest {
 
     @Test
     void testAddProduct_invalidQuantity() {
-        ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setQuantity(0);
+        ProductRequestDto productRequestDto = ProductRequestDto.builder().quantity(0).build();
         MultipartFile[] images = this.getValidImagesMultipartFiles();
         var exception = assertThrows(ProductException.class, () -> productService.addProduct(productRequestDto, images));
         assertEquals("Product quantity needs to be more than one.", exception.getMessage());
@@ -117,9 +116,10 @@ class ProductServiceTest {
 
     @Test
     void testAddProduct_invalidPrice() {
-        ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setQuantity(100);
-        productRequestDto.setPrice(new BigDecimal("0.001"));
+        ProductRequestDto productRequestDto = ProductRequestDto.builder()
+                .price(new BigDecimal("0.001"))
+                .quantity(100)
+                .build();
         MultipartFile[] images = this.getValidImagesMultipartFiles();
         var exception = assertThrows(ProductException.class, () -> productService.addProduct(productRequestDto, images));
         assertEquals("Invalid product price. Price needs to more than 0.00", exception.getMessage());
@@ -127,9 +127,10 @@ class ProductServiceTest {
 
     @Test
     void testAddProduct_invalidImagesNumber() {
-        ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setQuantity(100);
-        productRequestDto.setPrice(new BigDecimal("100.00"));
+        ProductRequestDto productRequestDto = ProductRequestDto.builder()
+                .price(new BigDecimal("100.00"))
+                .quantity(100)
+                .build();
         MultipartFile[] images = this.getValidImagesMultipartFilesOverMaximumSize();
         var exception = assertThrows(ProductException.class, () -> productService.addProduct(productRequestDto, images));
         assertEquals("Attach at least one or maximum five images.", exception.getMessage());
@@ -137,9 +138,10 @@ class ProductServiceTest {
 
     @Test
     void testAddProduct_invalidNoImagesAttached() {
-        ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setQuantity(100);
-        productRequestDto.setPrice(new BigDecimal("100.00"));
+        ProductRequestDto productRequestDto = ProductRequestDto.builder()
+                .price(new BigDecimal("100.00"))
+                .quantity(100)
+                .build();
         MultipartFile[] images = new MultipartFile[]{
                 new MockMultipartFile("emptyImage", "emptyImage.png", "image/png", new byte[0])
         };
@@ -149,9 +151,10 @@ class ProductServiceTest {
 
     @Test
     void testAddProduct_invalidImageContentType() {
-        ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setQuantity(100);
-        productRequestDto.setPrice(new BigDecimal("100.00"));
+        ProductRequestDto productRequestDto = ProductRequestDto.builder()
+                .price(new BigDecimal("100.00"))
+                .quantity(100)
+                .build();
         MultipartFile[] images = this.getInvalidImagesContentTypeMultipartFiles();
         var exception = assertThrows(ProductException.class, () -> productService.addProduct(productRequestDto, images));
         assertEquals("Invalid file content type.", exception.getMessage());
@@ -222,14 +225,14 @@ class ProductServiceTest {
     }
 
     private ProductRequestDto createValidProductRequestDto() {
-        ProductRequestDto productRequestDto = new ProductRequestDto();
-        productRequestDto.setName("Test Product");
-        productRequestDto.setDescription("Test description");
-        productRequestDto.setQuantity(100);
-        productRequestDto.setTypeId(1L);
-        productRequestDto.setCategoryId(1L);
-        productRequestDto.setPrice(new BigDecimal("100.00"));
-        return productRequestDto;
+        return ProductRequestDto.builder()
+                .name("Test Product")
+                .description("Test description")
+                .typeId(1L)
+                .categoryId(1L)
+                .price(new BigDecimal("100.00"))
+                .quantity(100)
+                .build();
     }
 
     private ProductImage createValidProductImage() {

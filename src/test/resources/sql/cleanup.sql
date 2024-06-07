@@ -1,0 +1,13 @@
+DELETE FROM category;
+DELETE FROM discount;
+DELETE FROM address;
+DELETE FROM verification;
+DELETE FROM forgotten_pass_reset;
+DELETE FROM user_role;
+DELETE FROM order_item;
+DELETE FROM order_details;
+DELETE FROM review;
+DELETE FROM nuvolo_user;
+DELETE FROM product_image;
+DELETE FROM product_inventory;
+DELETE FROM product;

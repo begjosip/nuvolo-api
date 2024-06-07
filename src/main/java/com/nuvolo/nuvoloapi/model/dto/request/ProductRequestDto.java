@@ -2,13 +2,13 @@ package com.nuvolo.nuvoloapi.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Getter
-@Setter
+@Builder
 public class ProductRequestDto {
 
     private Long id;

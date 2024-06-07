@@ -1,0 +1,2 @@
+INSERT INTO discount (name, description, discount_percentage, start_date, end_date, active)
+VALUES ('Test discount', 'Discount description', 0.1000, '2030-01-01T12:00:00', '2030-02-01T12:00:00', TRUE);
