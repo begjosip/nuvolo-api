@@ -48,6 +48,6 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           default_author: github_actions
-          message: 'Refresh coverage report statistics'
+          message: 'Refresh JaCoCo coverage report statistics'
           add: '.'
           token: ${{ secrets.PAT }}
