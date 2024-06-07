@@ -11,7 +11,8 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -48,6 +49,6 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           default_author: github_actions
-          message: 'Refresh JaCoCo coverage report statistics'
-          add: '.'
+          message: 'Refresh coverage report statistics'
+          add: '.github/'
           token: ${{ secrets.PAT }}
