@@ -50,3 +50,4 @@ jobs:
           default_author: github_actions
           message: 'Refresh coverage report statistics'
           add: '.'
+          token: ${{ secrets.PAT }}
