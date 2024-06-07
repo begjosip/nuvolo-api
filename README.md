@@ -237,7 +237,10 @@ response.
 
 ### Testing
 
+![Coverage](.github/coverage/coverage.svg)
+
 Code is covered utilizing JUnit5 and MockitoFramework along with SonarLint for clean code.
+Coverage is handled using JaCoCo plugin.
 
 ---
 
