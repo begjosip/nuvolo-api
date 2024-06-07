@@ -8,8 +8,7 @@ import com.nuvolo.nuvoloapi.model.entity.NuvoloUser;
 import com.nuvolo.nuvoloapi.model.entity.Verification;
 import com.nuvolo.nuvoloapi.model.enums.RoleName;
 import com.nuvolo.nuvoloapi.mq.RabbitMqSender;
-import com.nuvolo.nuvoloapi.mq.message.PasswordResetMessage;
-import com.nuvolo.nuvoloapi.mq.message.VerificationMessage;
+import com.nuvolo.nuvoloapi.mq.message.VerificationAndResetMessage;
 import com.nuvolo.nuvoloapi.repository.ForgottenPassResetRepository;
 import com.nuvolo.nuvoloapi.repository.NuvoloUserRepository;
 import com.nuvolo.nuvoloapi.repository.RoleRepository;
@@ -75,7 +74,7 @@ public class UserService {
         log.debug("Verification with ID:{} saved to database.", savedVerification.getId());
 
         log.debug("Sending user email verification");
-        if (Boolean.FALSE.equals(rabbitMqSender.sendEmailVerificationMessage(VerificationMessage.mapVerificationEntityToMessage(savedVerification))))
+        if (Boolean.FALSE.equals(rabbitMqSender.sendEmailVerificationMessage(VerificationAndResetMessage.mapVerificationEntityToMessage(savedVerification))))
             throw new AmqpException("Error occurred while sending user verification message.");
         log.debug("User email verification successfully sent");
     }
@@ -121,7 +120,7 @@ public class UserService {
         log.debug("Saved user forgotten password reset entity with ID: {} to database", savedPassReset.getId());
 
         log.debug("Sending password reset message to email service.");
-        if (Boolean.FALSE.equals(rabbitMqSender.sendPasswordResetMessage(PasswordResetMessage.mapForgottenPassResetEntityToMessage(savedPassReset)))) {
+        if (Boolean.FALSE.equals(rabbitMqSender.sendPasswordResetMessage(VerificationAndResetMessage.mapForgottenPassResetEntityToMessage(savedPassReset)))) {
             throw new AmqpException("Error occurred while sending password reset request.");
         }
         log.debug("Password reset message sent successfully.");

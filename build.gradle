@@ -28,7 +28,7 @@ jacocoTestCoverageVerification {
         rule {
             limit {
                 // TODO: improve code coverage and set minimum to 80%
-                minimum = 0.4
+                minimum = 0.5
             }
         }
 

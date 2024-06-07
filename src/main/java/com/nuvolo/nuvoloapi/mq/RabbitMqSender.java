@@ -2,8 +2,7 @@ package com.nuvolo.nuvoloapi.mq;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nuvolo.nuvoloapi.mq.message.NotificationMessage;
-import com.nuvolo.nuvoloapi.mq.message.PasswordResetMessage;
-import com.nuvolo.nuvoloapi.mq.message.VerificationMessage;
+import com.nuvolo.nuvoloapi.mq.message.VerificationAndResetMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
@@ -21,7 +20,7 @@ public class RabbitMqSender {
 
     private final ObjectMapper objectMapper;
 
-    public Boolean sendEmailVerificationMessage(VerificationMessage verificationMessage) {
+    public Boolean sendEmailVerificationMessage(VerificationAndResetMessage verificationMessage) {
         try {
             Object response = rabbitTemplate.convertSendAndReceive(rabbitMqComponent.getDirectExchangeName(),
                     rabbitMqComponent.getVerificationRoutingKey(),
@@ -31,7 +30,7 @@ public class RabbitMqSender {
                 log.error("Verification response is null.");
                 return Boolean.FALSE;
             }
-            VerificationMessage verificationResponse = objectMapper.convertValue(response, VerificationMessage.class);
+            VerificationAndResetMessage verificationResponse = objectMapper.convertValue(response, VerificationAndResetMessage.class);
             log.debug("Received verification response.");
             return verificationResponse.getSuccess();
         } catch (Exception ex) {
@@ -40,7 +39,7 @@ public class RabbitMqSender {
         }
     }
 
-    public Boolean sendPasswordResetMessage(PasswordResetMessage passResetMessage) {
+    public Boolean sendPasswordResetMessage(VerificationAndResetMessage passResetMessage) {
         try {
             Object response = rabbitTemplate.convertSendAndReceive(rabbitMqComponent.getDirectExchangeName(),
                     rabbitMqComponent.getPasswordResetRoutingKey(),
@@ -50,7 +49,7 @@ public class RabbitMqSender {
                 log.error("Password reset response is null.");
                 return Boolean.FALSE;
             }
-            PasswordResetMessage passwordResetResponse = objectMapper.convertValue(response, PasswordResetMessage.class);
+            VerificationAndResetMessage passwordResetResponse = objectMapper.convertValue(response, VerificationAndResetMessage.class);
             log.debug("Received password reset request response.");
             return passwordResetResponse.getSuccess();
         } catch (Exception ex) {
