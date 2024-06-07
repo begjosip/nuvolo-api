@@ -10,7 +10,7 @@
 ![PostgreSQL: PostgreSQL](https://img.shields.io/badge/-postgresql-%230064a5?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Redis: Redis](https://img.shields.io/badge/-redis-%23D82C20?style=for-the-badge&logo=redis&logoColor=white)
 ![RabbitMQ: RabbitMQ](https://img.shields.io/badge/-rabbitmq-%23FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
-![Flyway: Flyway](https://img.shields.io/badge/-redis-%23cc0000?style=for-the-badge&logo=flyway&logoColor=white)
+![Flyway: Flyway](https://img.shields.io/badge/-flyway-%23cc0000?style=for-the-badge&logo=flyway&logoColor=white)
 ![Hibernate: Hibernate](https://img.shields.io/badge/-hibernate-%235A5539?style=for-the-badge&logo=hibernate&logoColor=white)
 ![JUnit5: JUnit5](https://img.shields.io/badge/-junit5-%2325a162?style=for-the-badge&logo=junit5&logoColor=white)
 ![Docker: Docker](https://img.shields.io/badge/-docker-%230db7ed?style=for-the-badge&logo=docker&logoColor=white)
